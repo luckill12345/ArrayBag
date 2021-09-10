@@ -64,6 +64,20 @@ bool ArrayBag<ItemType> :: remove(const ItemType& anEntry)
 }
 
 template<class ItemType>
+int ArrayBag<ItemType> :: getFrequencyOf(const ItemType &anEntry) const
+{
+  int frequency = 0;
+	int curIndex = 0;
+	while(curIndex < itemCount)
+	{
+		if(items[curIndex] == anEntry) {
+			frequency++;
+		}
+		curIndex++;
+	} 
+	return frequency;
+}
+template<class ItemType>
 bool ArrayBag<ItemType> :: contains(const ItemType& target) const
 {
   return getIndexOf(target) > -1;
