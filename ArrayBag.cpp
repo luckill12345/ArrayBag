@@ -41,9 +41,24 @@ int ArrayBag<ItemType> :: getCurrentSize()
 template<class ItemType>
 bool ArrayBag<ItemType> :: isEmpty()
 {
-  return 
+  return itemCount == 0;
+}
+template<class ItemType>
+ArrayBag<ItemType> :: remove(const ItemType& anEntry)
+{
+  int localIndex = getIndexOf(anEntry);
+  bool canremoveItem = !isEmpty() && (localIndex > -1);
+
+  if (canremoveItem)
+  {
+    itemCount--;
+    items[localIndex] = items[itemCount]
+  }
 }
 template<class ItemType>
 template<class ItemType>
-template<class ItemType>
+ArrayBag<ItemType> :: contains(const ItemType &target)
+{
+  
+}
 template<class ItemType>
