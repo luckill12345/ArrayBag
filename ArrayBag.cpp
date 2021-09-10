@@ -1,5 +1,7 @@
-#include "ArrayBag.h"
+#ifndef _ARRAY_BAG_CPP
+#define _ARRAY_BAG_CPP
 #include <vector>
+#include "ArrayBag.h"
 using namespace std;
 
 template<class ItemType>
@@ -11,7 +13,7 @@ int ArrayBag<ItemType> :: getIndexOf(const ItemType& target) const
 
   while(!found && (searchIndex < itemCount))
   {
-    if (items[searchIndex] = target)
+    if (items[searchIndex] == target)
     {
       found = true;
       result = searchIndex;
@@ -25,9 +27,9 @@ template<class ItemType>
 ArrayBag<ItemType> :: ArrayBag(): itemCount(0), maxItems(DEFAULT_CAPACITY){}
 
 template<class ItemType>
-ArrayBag<ItemType> :: add(const ItemType &newEntry)
+bool ArrayBag<ItemType> :: add(const ItemType &newEntry)
 {
-  bool hasRoomtoAdd = (itemCount < maxItem);
+  bool hasRoomtoAdd = (itemCount < maxItems);
   if (hasRoomtoAdd)
   {
     items[itemCount] = newEntry;
@@ -37,14 +39,19 @@ ArrayBag<ItemType> :: add(const ItemType &newEntry)
 }
 
 template<class ItemType> 
-int ArrayBag<ItemType> :: getCurrentSize()
+int ArrayBag<ItemType> :: getCurrentSize() const
+{
+  return itemCount;
+}
+
 template<class ItemType>
-bool ArrayBag<ItemType> :: isEmpty()
+bool ArrayBag<ItemType> :: isEmpty() const
 {
   return itemCount == 0;
 }
+
 template<class ItemType>
-ArrayBag<ItemType> :: remove(const ItemType& anEntry)
+bool ArrayBag<ItemType> :: remove(const ItemType& anEntry)
 {
   int localIndex = getIndexOf(anEntry);
   bool canremoveItem = !isEmpty() && (localIndex > -1);
@@ -52,13 +59,30 @@ ArrayBag<ItemType> :: remove(const ItemType& anEntry)
   if (canremoveItem)
   {
     itemCount--;
-    items[localIndex] = items[itemCount]
+    items[localIndex] = items[itemCount];
   }
 }
+
 template<class ItemType>
-template<class ItemType>
-ArrayBag<ItemType> :: contains(const ItemType &target)
+bool ArrayBag<ItemType> :: contains(const ItemType& target) const
 {
-  
+  return getIndexOf(target) > -1;
 }
+
 template<class ItemType>
+void ArrayBag<ItemType> :: clear()
+{
+  itemCount = 0;
+}
+
+template<class ItemType>
+vector<ItemType> ArrayBag<ItemType> :: toVector() const
+{
+  vector<ItemType> bagContents;
+  for (int i =0; i < itemCount; i++ )
+  {
+    bagContents.push_back(items[i]);
+  }
+  return bagContents;
+}
+#endif
